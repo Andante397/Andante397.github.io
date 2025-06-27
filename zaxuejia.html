@@ -1,0 +1,1112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杂学家 - 知识探索之旅</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --accent: #4cc9f0;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #4CAF50;
+            --warning: #FFC107;
+            --danger: #F72585;
+        }
+        
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, #4cc9f0, #3f37c9, #f72585);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: var(--light);
+            line-height: 1.6;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: fadeInDown 1s ease;
+        }
+        
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            margin-bottom: 10px;
+            text-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            background: linear-gradient(to right, #ff9a9e, #fad0c4, #fad0c4, #a1c4fd);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: 2px;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .knowledge-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 30px;
+            animation: fadeInUp 1s ease;
+            transition: transform 0.3s ease;
+            position: relative;
+            z-index: 10;
+        }
+        
+        .knowledge-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .term {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .term-icon {
+            font-size: 3rem;
+            margin-right: 20px;
+            color: var(--accent);
+        }
+        
+        .term-text {
+            flex: 1;
+        }
+        
+        .term-name {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: white;
+        }
+        
+        .term-category {
+            display: inline-block;
+            background: rgba(76, 201, 240, 0.3);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .card-section {
+            margin-bottom: 25px;
+        }
+        
+        .section-title {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            color: var(--accent);
+        }
+        
+        .section-title i {
+            margin-right: 10px;
+        }
+        
+        .section-content {
+            background: rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+        }
+        
+        .reading-list {
+            list-style: none;
+        }
+        
+        .reading-list li {
+            margin-bottom: 12px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .reading-list li:before {
+            content: "📚";
+            position: absolute;
+            left: 0;
+            top: 2px;
+        }
+        
+        .reading-list a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border-bottom: 1px dashed rgba(76, 201, 240, 0.5);
+        }
+        
+        .reading-list a:hover {
+            color: white;
+            border-bottom: 1px solid white;
+        }
+        
+        .refresh-btn {
+            display: block;
+            width: 100%;
+            padding: 18px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            color: white;
+            font-size: 1.2rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            margin-top: 10px;
+        }
+        
+        .refresh-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-3px);
+        }
+        
+        .refresh-btn i {
+            margin-right: 10px;
+            animation: spin 2s linear infinite;
+        }
+        
+        .counter {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* 学习提醒弹窗 */
+        .reminder-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .reminder-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            transform: translateY(50px);
+            transition: transform 0.5s ease;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .reminder-modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .modal-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+        
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+        
+        .modal-message {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .modal-btn {
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+        }
+        
+        .btn-continue {
+            background: rgba(76, 201, 240, 0.7);
+            color: white;
+        }
+        
+        .btn-continue:hover {
+            background: rgba(76, 201, 240, 1);
+            transform: translateY(-3px);
+        }
+        
+        .btn-take-break {
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .btn-take-break:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+        }
+        
+        /* 动画效果 */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        /* 装饰元素 */
+        .floating-icon {
+            position: absolute;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 3rem;
+            }
+            
+            .knowledge-card {
+                padding: 25px;
+            }
+            
+            .term-name {
+                font-size: 2rem;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-message {
+                font-size: 1.1rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            body {
+                padding: 15px;
+            }
+            
+            .logo {
+                font-size: 2.5rem;
+            }
+            
+            .term {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .term-icon {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .term-name {
+                font-size: 1.8rem;
+            }
+            
+            .knowledge-card {
+                padding: 20px;
+            }
+            
+            .section-title {
+                font-size: 1.2rem;
+            }
+            
+            .section-content {
+                padding: 15px;
+                font-size: 1rem;
+            }
+            
+            .modal-buttons {
+                flex-direction: column;
+            }
+            
+            .modal-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 装饰元素 -->
+    <div class="floating-icon" style="top: 10%; left: 5%;"><i class="fas fa-book"></i></div>
+    <div class="floating-icon" style="top: 20%; right: 7%;"><i class="fas fa-lightbulb"></i></div>
+    <div class="floating-icon" style="bottom: 15%; left: 8%;"><i class="fas fa-atom"></i></div>
+    <div class="floating-icon" style="bottom: 25%; right: 10%;"><i class="fas fa-brain"></i></div>
+    
+    <div class="container">
+        <header>
+            <h1 class="logo">杂学家</h1>
+            <p class="tagline">探索世界奇妙知识，每次一个精彩名词</p>
+        </header>
+        
+        <main>
+            <div class="knowledge-card">
+                <div class="term">
+                    <div class="term-icon">
+                        <i class="fas fa-atom"></i>
+                    </div>
+                    <div class="term-text">
+                        <h2 class="term-name" id="term-name">量子纠缠</h2>
+                        <span class="term-category" id="term-category">物理学</span>
+                    </div>
+                </div>
+                
+                <div class="card-section">
+                    <h3 class="section-title"><i class="fas fa-book-open"></i> 解释</h3>
+                    <div class="section-content" id="term-definition">
+                        量子纠缠是量子力学中的一种现象，当几个粒子彼此相互作用后，由于各个粒子所拥有的特性已综合成为整体性质，无法单独描述各个粒子的性质，只能描述整体系统的性质。
+                    </div>
+                </div>
+                
+                <div class="card-section">
+                    <h3 class="section-title"><i class="fas fa-lightbulb"></i> 应用场景</h3>
+                    <div class="section-content" id="term-usage">
+                        量子纠缠是现代量子技术的基础，应用于量子计算、量子通信和量子加密等领域。在量子通信中，纠缠粒子对可以实现理论上无法被破解的安全通信。在量子计算中，纠缠态可以用于实现量子并行计算，大大提高计算效率。
+                    </div>
+                </div>
+                
+                <div class="card-section">
+                    <h3 class="section-title"><i class="fas fa-book"></i> 深入阅读</h3>
+                    <div class="section-content">
+                        <ul class="reading-list" id="term-reading">
+                            <li><a href="https://zh.wikipedia.org/zh-hans/量子纏結" target="_blank">维基百科：量子纠缠</a> - 全面的基础介绍</li>
+                            <li><a href="https://www.quantamagazine.org/how-quantum-entanglement-works-20230426/" target="_blank">Quanta Magazine：量子纠缠如何工作</a> - 深入的科学解释</li>
+                            <li><a href="https://www.nature.com/articles/d41586-018-04958-9" target="_blank">Nature：量子纠缠的实用化进展</a> - 最新研究进展</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="refresh-btn" id="refresh-btn">
+                <i class="fas fa-sync-alt"></i> 探索新知识
+            </button>
+            
+            <div class="counter">
+                已探索 <span id="counter">1</span> 个知识概念
+            </div>
+        </main>
+        
+        <footer>
+            <p>杂学家 &copy; 2023 | 知识无边界，探索无止境</p>
+        </footer>
+    </div>
+    
+    <!-- 学习提醒弹窗 -->
+    <div class="reminder-modal" id="reminder-modal">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-coffee"></i>
+            </div>
+            <h2 class="modal-title">知识探索小憩</h2>
+            <p class="modal-message">
+                你已经学习了 <span id="learned-count">10</span> 个知识概念！<br>
+                要不要暂时跳出知识海洋，回到现实生活休息一下？
+            </p>
+            <div class="modal-buttons">
+                <button class="modal-btn btn-continue" id="continue-btn">继续探索</button>
+                <button class="modal-btn btn-take-break" id="take-break-btn">休息一下</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 知识库数据
+        const knowledgeBase = [
+            {
+                term: "模因论",
+                category: "社会学",
+                icon: "fas fa-brain",
+                definition: "模因论是一种基于达尔文进化论观点解释文化进化规律的理论，由理查德·道金斯在《自私的基因》中首次提出。模因指文化的基本单位，通过非遗传的方式，特别是模仿而得到传递。",
+                usage: "模因论用于解释文化现象、流行趋势、网络爆红内容的传播机制。在社交媒体分析、市场营销、文化研究中被广泛应用。理解模因有助于设计更具传播力的内容和广告。",
+                reading: [
+                    {title: "维基百科：模因", url: "https://zh.wikipedia.org/zh-hans/迷因"},
+                    {title: "《自私的基因》第11章", url: "https://book.douban.com/subject/11445548/"},
+                    {title: "模因学入门指南-SCP基金会", url: "https://scp-wiki-cn.wikidot.com/understanding-memetics"}
+                ]
+            },
+            {
+                term: "帕累托法则",
+                category: "经济学",
+                icon: "fas fa-chart-pie",
+                definition: "帕累托法则又称80/20法则，由意大利经济学家维尔弗雷多·帕累托提出。该法则指出，在许多情况下，约80%的结果来自于20%的原因。这一现象在经济学、商业管理等领域广泛存在。",
+                usage: "用于资源分配、时间管理、商业决策等领域。企业常用此法则分析客户价值（80%利润来自20%客户）、问题排查（80%问题由20%原因引起）和效率优化（关注20%高价值活动）。",
+                reading: [
+                    {title: "帕累托法则详解", url: "https://www.investopedia.com/terms/p/paretoprinciple.asp"},
+                    {title: "《80/20法则》理查德·科克", url: "https://book.douban.com/subject/25813440/"},
+                    {title: "工作中的帕累托应用", url: "https://hbr.org/2018/03/the-pareto-principle-should-you-be-doing-more-of-what-you-do-best"}
+                ]
+            },
+            {
+                term: "薛定谔的猫",
+                category: "物理学",
+                icon: "fas fa-cat",
+                definition: "薛定谔的猫是由奥地利物理学家埃尔温·薛定谔提出的思想实验，用以说明量子力学中叠加态概念应用于宏观系统时可能导致的荒谬结论。实验中，一只猫被置于装有少量放射性物质的密封箱内，在量子规则下，猫同时处于生与死的叠加状态，直到被观察。",
+                usage: "这一概念常用于科普量子力学基本原理，也用于比喻那些同时存在两种对立状态的情况。在哲学讨论中用于探讨观测对现实的影响，在流行文化中已成为一个广为人知的科学比喻。",
+                reading: [
+                    {title: "薛定谔的猫解释", url: "https://www.space.com/schrodingers-cat.html"},
+                    {title: "量子叠加态详解", url: "https://plato.stanford.edu/entries/qt-issues/"},
+                    {title: "《薛定谔的猫：改变物理学的50个实验》", url: "https://book.douban.com/subject/26693207/"}
+                ]
+            },
+            {
+                term: "邓宁-克鲁格效应",
+                category: "心理学",
+                icon: "fas fa-user",
+                definition: "邓宁-克鲁格效应是一种认知偏差，指能力不足的人反而更倾向于高估自己的能力水平，而能力较强的人则可能低估自己的相对能力。这一现象由大卫·邓宁和贾斯汀·克鲁格于1999年通过实验首次证实。",
+                usage: "该理论广泛应用于教育、人力资源管理、团队建设和领导力培训。理解此效应有助于人们更客观地评估自身能力，避免过度自信，也帮助管理者识别员工真实能力水平。",
+                reading: [
+                    {title: "原始研究论文", url: "https://www.ncbi.nlm.nih.gov/pubmed/10626367"},
+                    {title: "邓宁-克鲁格效应解析", url: "https://www.psychologytoday.com/us/basics/dunning-kruger-effect"},
+                    {title: "如何避免认知偏差", url: "https://hbr.org/2019/11/4-ways-to-protect-yourself-against-the-dunning-kruger-effect"}
+                ]
+            },
+            {
+                term: "区块链",
+                category: "计算机科学",
+                icon: "fas fa-link",
+                definition: "区块链是一种分布式数据库技术，由按时间顺序链接的数据块（区块）组成，每个区块包含一批交易记录，并通过密码学方法与前一个区块相连。区块链的核心特点是去中心化、不可篡改和透明性。",
+                usage: "区块链技术主要应用于加密货币（如比特币）、智能合约、供应链管理、数字身份验证等领域。它提供了一种无需信任第三方即可进行安全交易和记录保存的新范式，正在改变金融、物流、医疗等多个行业。",
+                reading: [
+                    {title: "区块链技术指南", url: "https://www.ibm.com/topics/what-is-blockchain"},
+                    {title: "《区块链革命》", url: "https://book.douban.com/subject/26871829/"},
+                    {title: "MIT区块链技术课程", url: "https://ocw.mit.edu/courses/15-s12-blockchain-and-money-fall-2018/"}
+                ]
+            },
+            {
+                term: "第二大脑",
+                category: "个人管理",
+                icon: "fas fa-head-side-brain",
+                definition: "第二大脑是指通过数字工具和方法扩展个人认知能力的系统，通常包括笔记系统、知识库和个人工作流程。这个概念由蒂亚戈·福特提出，强调建立个人知识管理系统的重要性。",
+                usage: "第二大脑系统帮助个人有效管理信息过载，提高学习和工作效率。广泛应用于知识工作者、研究人员、学生和创意人士，用于组织想法、积累知识和促进创造性思考。",
+                reading: [
+                    {title: "构建你的第二大脑", url: "https://fortelabs.com/blog/basboverview/"},
+                    {title: "《打造第二大脑》", url: "https://book.douban.com/subject/35982943/"},
+                    {title: "数字笔记系统指南", url: "https://www.youtube.com/watch?v=OP3dA2GcAh8"}
+                ]
+            },
+            {
+                term: "蝴蝶效应",
+                category: "系统科学",
+                icon: "fas fa-butterfly",
+                definition: "蝴蝶效应是混沌理论中的一个概念，指在一个动力系统中，初始条件下微小的变化能带动整个系统的长期的巨大的连锁反应。这个概念由气象学家爱德华·洛伦兹提出，形象地比喻为一只蝴蝶扇动翅膀可能引起遥远地方的一场龙卷风。",
+                usage: "蝴蝶效应常用于解释复杂系统中不可预测的行为，应用于气象学、经济学、社会学等领域。它提醒我们在复杂系统中，微小的初始变化可能导致巨大的结果差异，对决策和预测有重要启示。",
+                reading: [
+                    {title: "蝴蝶效应解释", url: "https://www.britannica.com/science/butterfly-effect"},
+                    {title: "洛伦兹原始论文", url: "https://journals.ametsoc.org/view/journals/atsc/20/2/1520-0469_1963_020_0130_dnf_2_0_co_2.xml"},
+                    {title: "混沌理论入门", url: "https://www.quantamagazine.org/chaos-theory-and-the-butterfly-effect-20210816/"}
+                ]
+            },
+            {
+                term: "认知失调",
+                category: "心理学",
+                icon: "fas fa-balance-scale",
+                definition: "认知失调理论由利昂·费斯廷格提出，指当个体同时拥有两种或多种在心理上不一致的认知（如信念、态度、行为）时，会产生心理不适感。这种不适感会促使个体努力减少失调，达到认知一致。",
+                usage: "认知失调理论用于解释态度改变、决策后合理化、信仰坚持等现象。在市场营销中解释消费者购买后的心理调整，在社会心理学中解释群体行为和偏见维持机制。",
+                reading: [
+                    {title: "认知失调理论", url: "https://www.simplypsychology.org/cognitive-dissonance.html"},
+                    {title: "《认知失调理论》", url: "https://book.douban.com/subject/3143802/"},
+                    {title: "认知失调的现代研究", url: "https://www.frontiersin.org/articles/10.3389/fpsyg.2019.02615/full"}
+                ]
+            },
+            {
+                term: "长尾理论",
+                category: "经济学",
+                icon: "fas fa-chart-line",
+                definition: "长尾理论由克里斯·安德森提出，描述在互联网时代，那些需求不旺或销量不佳的产品共同占据的市场份额，可以和少数热销产品所占据的市场份额相匹敌甚至更大的现象。",
+                usage: "长尾理论解释了电子商务平台的成功模式（如亚马逊、Netflix）。应用于商业策略制定，指导企业如何利用互联网的低存储和流通成本，提供广泛的产品种类以满足个性化需求。",
+                reading: [
+                    {title: "长尾理论详解", url: "https://www.wired.com/2004/10/tail/"},
+                    {title: "《长尾理论》", url: "https://book.douban.com/subject/1919072/"},
+                    {title: "长尾理论15年回顾", url: "https://www.theatlantic.com/technology/archive/2018/05/the-long-tail-theory-that-internet-businesses-built-on-is-gone/560204/"}
+                ]
+            },
+            {
+                term: "摩尔定律",
+                category: "计算机科学",
+                icon: "fas fa-microchip",
+                definition: "摩尔定律由英特尔创始人戈登·摩尔提出，指出集成电路上可容纳的晶体管数目，约每隔18个月便会增加一倍，性能也将提升一倍。尽管是经验观察而非物理定律，但在过去几十年中基本准确预测了半导体产业的发展速度。",
+                usage: "摩尔定律成为半导体行业的发展目标和自我实现预言。用于指导技术投资决策、产品路线图规划，以及解释数字技术指数级发展的原因。",
+                reading: [
+                    {title: "摩尔定律历史", url: "https://www.intel.com/content/www/us/en/history/museum-gordon-moore-law.html"},
+                    {title: "摩尔定律的现状", url: "https://www.nature.com/articles/s41928-019-0224-3"},
+                    {title: "《三位一体：英特尔传奇》", url: "https://book.douban.com/subject/26854289/"}
+                ]
+            },
+// 在knowledgeBase数组中添加以下10个新条目
+            {
+    term: "墨菲定律",
+    category: "心理学",
+    icon: "fas fa-exclamation-triangle",
+    definition: "墨菲定律是一种心理学现象，核心观点是'如果事情有变坏的可能，不管这种可能性有多小，它总会发生'。由爱德华·墨菲在1949年提出，最初源于航空工程领域的观察。",
+    usage: "在风险管理、项目管理、工程设计等领域广泛应用。提醒人们提前考虑可能的失败情况并制定应对方案，也常用于解释日常生活中的小概率不幸事件。",
+    reading: [
+        {title: "墨菲定律详解", url: "https://www.livescience.com/38339-experiments-bolster-schrodingers-cat-idea.html"},
+        {title: "《墨菲定律》", url: "https://book.douban.com/subject/27163990/"},
+        {title: "生活中的墨菲定律", url: "https://people.howstuffworks.com/murphys-law.htm"}
+    ]
+},
+{
+    term: "熵增定律",
+    category: "物理学",
+    icon: "fas fa-fire",
+    definition: "熵增定律是热力学第二定律的核心内容，指出在孤立系统中，熵（系统无序度的度量）总是随时间增加而增大，系统会自发地向更混乱的状态演变。",
+    usage: "用于理解能量转换效率、时间箭头、宇宙演化等基本问题。在信息论中解释信息丢失，在管理学中用于分析组织效率递减，在哲学中讨论生命与无序的对抗。",
+    reading: [
+        {title: "熵增原理科普", url: "https://www.zhihu.com/question/19717006"},
+        {title: "《时间之箭》彼得·柯文尼", url: "https://book.douban.com/subject/10740066/"},
+        {title: "熵与信息论", url: "https://plato.stanford.edu/entries/information-entropy/"}
+    ]
+},
+{
+    term: "奥卡姆剃刀原理",
+    category: "哲学",
+    icon: "fas fa-cut",
+    definition: "奥卡姆剃刀原理由14世纪逻辑学家奥卡姆的威廉提出，核心思想是'如无必要，勿增实体'。在多个竞争理论中，应选择假设最少、最简单的那个。",
+    usage: "广泛应用于科学理论选择、问题解决策略、产品设计等领域。帮助排除不必要的复杂假设，在医学诊断、刑侦推理和算法设计中作为重要思维工具。",
+    reading: [
+        {title: "奥卡姆剃刀解释", url: "https://plato.stanford.edu/entries/ockham/"},
+        {title: "科学方法中的奥卡姆剃刀", url: "https://www.nature.com/articles/d41586-018-05542-x"},
+        {title: "《简单法则》前田约翰", url: "https://book.douban.com/subject/2301477/"}
+    ]
+},
+{
+    term: "马斯洛需求层次",
+    category: "心理学",
+    icon: "fas fa-mountain",
+    definition: "马斯洛需求层次理论由亚伯拉罕·马斯洛于1943年提出，将人类需求分为五个层次：生理需求、安全需求、社交需求、尊重需求和自我实现需求。通常以金字塔形式呈现。",
+    usage: "广泛应用于管理学、市场营销、教育学和心理学。用于理解员工激励、消费者行为、个人发展路径，是人力资源管理和产品设计的理论基础。",
+    reading: [
+        {title: "马斯洛原始论文", url: "https://psychclassics.yorku.ca/Maslow/motivation.htm"},
+        {title: "需求层次理论批判与发展", url: "https://www.simplypsychology.org/maslow.html"},
+        {title: "《动机与人格》", url: "https://book.douban.com/subject/1321566/"}
+    ]
+},
+{
+    term: "图灵测试",
+    category: "计算机科学",
+    icon: "fas fa-robot",
+    definition: "图灵测试由艾伦·图灵于1950年提出，用于判断机器是否具有人类水平的智能。测试中，人类评判员通过文本对话区分机器和人类，若机器能持续欺骗评判员，则通过测试。",
+    usage: "作为人工智能领域的基准测试，推动自然语言处理和对话系统发展。在哲学领域引发关于意识本质的讨论，也是科幻作品中常见的主题。",
+    reading: [
+        {title: "图灵原始论文", url: "https://www.csee.umbc.edu/courses/471/papers/turing.pdf"},
+        {title: "现代图灵测试挑战", url: "https://www.theguardian.com/technology/2014/jun/09/what-is-the-alan-turing-test"},
+        {title: "《艾伦·图灵传》", url: "https://book.douban.com/subject/10522003/"}
+    ]
+},
+{
+    term: "费曼学习法",
+    category: "教育学",
+    icon: "fas fa-chalkboard-teacher",
+    definition: "费曼学习法由诺贝尔物理学奖得主理查德·费曼提出，是一种高效学习方法。核心是通过向他人讲解概念来深化理解，要求用最简单语言解释复杂概念，发现知识漏洞。",
+    usage: "广泛应用于教育和自我提升领域。帮助学生有效学习复杂科目，专业人士用于掌握新技能，教师设计教学方案，也是知识管理的重要方法。",
+    reading: [
+        {title: "费曼学习法详解", url: "https://fs.blog/feynman-learning-technique/"},
+        {title: "《发现的乐趣》费曼", url: "https://book.douban.com/subject/26696609/"},
+        {title: "教育中的应用案例", url: "https://www.edutopia.org/article/how-use-feynman-technique-learn-anything"}
+    ]
+},
+{
+    term: "幸存者偏差",
+    category: "逻辑学",
+    icon: "fas fa-users",
+    definition: "幸存者偏差是一种逻辑谬误，指人们过度关注\"幸存\"的个体或案例，而忽略那些未能\"幸存\"的（通常因为缺乏可见性），导致错误结论。源于二战期间对返航战机弹孔分布的研究。",
+    usage: "在数据分析、投资决策、历史研究中用于避免错误归因。帮助识别隐藏的数据，批判性评估成功学案例，理解产品失败原因。",
+    reading: [
+        {title: "幸存者偏差起源", url: "https://towardsdatascience.com/survivorship-bias-in-data-science-2f393efbd5a8"},
+        {title: "《黑天鹅》纳西姆·塔勒布", url: "https://book.douban.com/subject/6854525/"},
+        {title: "投资中的幸存者偏差", url: "https://www.investopedia.com/terms/s/survivorshipbias.asp"}
+    ]
+},
+{
+    term: "六度分隔理论",
+    category: "社会学",
+    icon: "fas fa-project-diagram",
+    definition: "六度分隔理论由斯坦利·米尔格拉姆于1967年提出，认为世界上任意两人之间最多通过六个中间人就能建立联系。揭示了社交网络的小世界特性。",
+    usage: "社交网络分析的基础理论，应用于社交软件设计、病毒式营销、流行病传播研究。解释信息传播速度，也是LinkedIn等职业网络的理论基础。",
+    reading: [
+        {title: "原始实验论文", url: "https://snap.stanford.edu/class/cs224w-readings/milgram67smallworld.pdf"},
+        {title: "现代验证研究", url: "https://www.bbc.com/future/article/20130115-six-degrees-of-separation"},
+        {title: "《链接》巴拉巴西", url: "https://book.douban.com/subject/27052549/"}
+    ]
+},
+
+{
+    term: "破窗效应",
+    category: "社会学",
+    icon: "fas fa-window-restore",
+    definition: "破窗效应由詹姆斯·威尔逊和乔治·凯林于1982年提出，指环境中的不良现象如果被放任存在，会诱使人们效仿甚至变本加厉。如一扇破窗若不及时修复，可能导致更多窗户被破坏。",
+    usage: "应用于犯罪预防、城市管理、组织管理和产品设计。解释轻微违规行为如何演变为严重问题，指导通过改善环境细节来提升整体秩序。",
+    reading: [
+        {title: "原始研究论文", url: "https://www.theatlantic.com/magazine/archive/1982/03/broken-windows/304465/"},
+        {title: "犯罪学中的应用", url: "https://cebcp.org/evidence-based-policing/what-works-in-policing/research-evidence-review/broken-windows-policing/"},
+        {title: "产品设计中的破窗效应", url: "https://www.nngroup.com/articles/antipatterns-broken-windows/"}
+    ]
+},
+
+// 在knowledgeBase数组中添加以下22个新条目
+{
+    term: "三体问题",
+    category: "物理学",
+    icon: "fas fa-planet-ringed",
+    definition: "三体问题是指三个天体在相互引力作用下的运动轨迹预测问题。自牛顿时代起就困扰科学家，已被证明是混沌系统，没有通用解析解。",
+    usage: "在天体物理学中预测恒星系统演化，在航天工程中设计深空探测器轨道，也是混沌理论和复杂系统研究的重要案例。",
+    reading: [
+        {title: "三体问题详解", url: "https://zh.wikipedia.org/zh-hans/三体问题"},
+        {title: "《三体》刘慈欣", url: "https://book.douban.com/subject/2567698/"},
+        {title: "《三体》网站", url: "http://www.threebody.com.cn/"}
+    ]
+},
+{
+    term: "恐怖谷效应",
+    category: "心理学",
+    icon: "fas fa-robot",
+    definition: "恐怖谷理论由日本机器人专家森政弘提出，指当非人类物体(如机器人、玩偶)与人类极度相似但又不完全相同时，会引发人的厌恶和恐惧感。",
+    usage: "在机器人设计、动画制作、游戏开发中避免引起观众不适，在市场营销中设计拟人化形象，在心理学研究中探索人类认知边界。",
+    reading: [
+        {title: "恐怖谷效应研究", url: "https://spectrum.ieee.org/automaton/robotics/humanoids/what-is-the-uncanny-valley"},
+        {title: "原始论文翻译", url: "https://blog.otoro.net/2015/11/12/uncanny-valley/"},
+        {title: "电影中的应用分析", url: "https://www.studiobinder.com/blog/uncanny-valley-definition/"}
+    ]
+},
+{
+    term: "黑暗森林法则",
+    category: "科幻理论",
+    icon: "fas fa-tree",
+    definition: "黑暗森林法则是刘慈欣在《三体》中提出的宇宙社会学理论：宇宙如同黑暗森林，每个文明都是带枪的猎人，必须保持沉默以免暴露位置被更高级文明消灭。",
+    usage: "在科幻创作中构建宇宙文明关系，在SETI计划中讨论主动联系外星文明的风险，在国际关系中类比国家间的战略猜疑。",
+    reading: [
+        {title: "黑暗森林法则解析", url: "https://zhuanlan.zhihu.com/p/34123572"},
+        {title: "《三体II：黑暗森林》", url: "https://book.douban.com/subject/3066477/"},
+        {title: "科学界对法则的讨论", url: "https://www.scientificamerican.com/article/the-dark-forest-answer-to-fermi-s-paradox-explains-why-we-havent-heard-from-aliens/"}
+    ]
+},
+{
+    term: "贝叶斯定理",
+    category: "数学",
+    icon: "fas fa-calculator",
+    definition: "贝叶斯定理是概率论中的基本定理，描述在已知相关条件下事件发生的概率如何更新。公式为P(A|B)=P(B|A)P(A)/P(B)，其中P(A|B)是在B发生的条件下A发生的概率。",
+    usage: "广泛应用于机器学习、医学诊断、金融风险评估、垃圾邮件过滤等领域。是现代人工智能算法的基础，也是理性决策的重要工具。",
+    reading: [
+        {title: "贝叶斯定理直观解释", url: "https://betterexplained.com/articles/an-intuitive-and-short-explanation-of-bayes-theorem/"},
+        {title: "《贝叶斯思维》", url: "https://book.douban.com/subject/26397803/"},
+        {title: "贝叶斯在AI中的应用", url: "https://towardsdatascience.com/bayesian-machine-learning-eea39c94d416"}
+    ]
+},
+{
+    term: "黄金分割率",
+    category: "数学",
+    icon: "fas fa-divide",
+    definition: "黄金分割率(φ≈1.618)是一个无理数，满足(a+b)/a = a/b的比率关系。这一比例被认为具有美学上的完美性，广泛存在于艺术、建筑和自然界中。",
+    usage: "在艺术创作中构图，在建筑设计确定比例(如帕特农神庙)，在工业设计中创造视觉舒适的产品，在金融分析中预测价格波动。",
+    reading: [
+        {title: "黄金分割的数学原理", url: "https://mathworld.wolfram.com/GoldenRatio.html"},
+        {title: "自然界中的黄金分割", url: "https://www.livescience.com/37704-phi-golden-ratio.html"},
+        {title: "设计中的应用指南", url: "https://www.canva.com/learn/what-is-the-golden-ratio/"}
+    ]
+},
+{
+    term: "多巴胺",
+    category: "神经科学",
+    icon: "fas fa-brain",
+    definition: "多巴胺是一种神经递质，在大脑中负责传递愉悦、奖励和动机信号。它不仅与快乐感受有关，更主要的功能是驱动行为、形成习惯和强化学习。",
+    usage: "在心理学中解释成瘾机制，在产品设计中创建用户习惯，在医学中治疗帕金森症和抑郁症，在教育中设计激励学习系统。",
+    reading: [
+        {title: "多巴胺的神经机制", url: "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3056501/"},
+        {title: "《多巴胺国度》", url: "https://book.douban.com/subject/35581540/"},
+        {title: "多巴胺与行为经济学", url: "https://www.apa.org/monitor/2012/07-08/dopamine"}
+    ]
+},
+{
+    term: "锡德拉湾上空",
+    category: "历史事件",
+    icon: "fas fa-plane",
+    definition: "1989年1月4日，美国海军F-14战斗机在地中海上空击落两架利比亚米格-23战机的事件。这是冷战期间美苏代理冲突的一部分，展示了现代空战技术和国际政治博弈。",
+    usage: "在军事研究中分析空战战术演变，在国际关系课程中讨论危机管理，在航空史中作为现代空战经典案例。",
+    reading: [
+        {title: "事件官方报告", url: "https://www.history.navy.mil/research/histories/naval-aviation-history/naval-aviation-news/1989-pdf/1989-jan-feb.pdf"},
+        {title: "飞行员回忆录", url: "https://www.wearethemighty.com/articles/watch-this-f-14-tomcat-shoot-down-a-libyan-mig-23/"},
+        {title: "地缘政治分析", url: "https://www.airandspaceforces.com/article/0901gulf/"}
+    ]
+},
+{
+    term: "格式塔心理学",
+    category: "心理学",
+    icon: "fas fa-shapes",
+    definition: "格式塔心理学（完形心理学）是20世纪初在德国兴起的心理学派，主张人脑将感知信息组织为整体而非分离元素。核心原则包括相似性、接近性、闭合性和连续性。",
+    usage: "在设计领域创建直观的用户界面，在广告中引导视觉注意，在教育中设计更易理解的教学材料，在艺术创作中构建视觉平衡。",
+    reading: [
+        {title: "格式塔原则详解", url: "https://www.interaction-design.org/literature/topics/gestalt-principles"},
+        {title: "原始研究论文", url: "https://psychclassics.yorku.ca/Wertheimer/Forms/forms.htm"},
+        {title: "UI设计中的应用", url: "https://www.woshipm.com/ucd/1087361.html"}
+    ]
+},
+{
+    term: "海因里希法则",
+    category: "安全管理",
+    icon: "fas fa-triangle-exclamation",
+    definition: "由安全工程师赫伯特·海因里希提出的300:29:1法则，指出在重大伤亡事故发生前，通常会发生29起轻伤事故和300起无伤害事故。强调小事故预防的重要性。",
+    usage: "在工业安全管理中建立预防体系，在医疗系统中减少医疗错误，在航空安全中分析事故链，在网络安全中识别威胁前兆。",
+    reading: [
+        {title: "原始研究报告", url: "https://archive.org/details/industrialaccide0000hein"},
+        {title: "现代安全管理应用", url: "https://www.safetyandhealthmagazine.com/articles/14069-heinrichs-pyramid-and-safety-management"},
+        {title: "医疗安全中的实践", url: "https://psnet.ahrq.gov/perspective/heinrichs-law-and-health-care"}
+    ]
+},
+{
+    term: "阿罗不可能定理",
+    category: "经济学",
+    icon: "fas fa-vote-yea",
+    definition: "由肯尼斯·阿罗提出的社会选择理论定理，证明在满足四个基本公理的前提下，不存在完美的集体决策机制。揭示了民主投票制度的内在矛盾。",
+    usage: "在政治学中分析选举制度缺陷，在经济学中设计市场机制，在群体决策系统中优化算法，在哲学中讨论民主的局限性。",
+    reading: [
+        {title: "阿罗原始论文", url: "https://www.jstor.org/stable/1906816"},
+        {title: "定理通俗解释", url: "https://plato.stanford.edu/entries/arrows-theorem/"},
+        {title: "现代民主制度影响", url: "https://www.economist.com/finance-and-economics/2014/10/09/the-impossibility-theorem"}
+    ]
+},
+{
+    term: "哥德尔不完备定理",
+    category: "数学",
+    icon: "fas fa-infinity",
+    definition: "库尔特·哥德尔在1931年证明的两个数学定理：第一定理指出在任何一致的形式系统中，存在既不能证明也不能证伪的命题；第二定理表明系统无法证明自身一致性。",
+    usage: "在数学基础研究中界定形式系统极限，在计算机科学中分析算法边界，在哲学中讨论真理本质，在人工智能中探索认知边界。",
+    reading: [
+        {title: "哥德尔原始论文", url: "https://monoskop.org/images/9/93/Kurt_G%C3%B6del_On_Formally_Undecidable_Propositions_of_Principia_Mathematica_and_Related_Systems_1992.pdf"},
+        {title: "《哥德尔、艾舍尔、巴赫》", url: "https://book.douban.com/subject/34902719/"},
+        {title: "定理哲学意义", url: "https://plato.stanford.edu/entries/goedel/"}
+    ]
+},
+{
+    term: "坎宁安定律",
+    category: "网络文化",
+    icon: "fas fa-keyboard",
+    definition: "维基百科创始人沃德·坎宁安提出的观察：'在互联网上获得正确答案的最佳方式不是提问，而是发布一个错误答案。'反映了网络社区的纠错机制和人性特质。",
+    usage: "在社区管理中使用逆向激励获取信息，在产品测试中故意引入错误发现漏洞，在社交媒体策略中设计话题互动，在教育中激发批判性思维。",
+    reading: [
+        {title: "定律起源访谈", url: "https://en.wikiquote.org/wiki/Ward_Cunningham"},
+        {title: "社交媒体案例分析", url: "https://knowyourmeme.com/memes/cunninghams-law"},
+        {title: "知识管理应用", url: "https://www.collaborationsuperpowers.com/cunninghams-law-best-way-answer/"}
+    ]
+},
+{
+    term: "德雷克方程",
+    category: "天文学",
+    icon: "fas fa-stars",
+    definition: "由法兰克·德雷克于1961年提出的概率方程：N = R* × fₚ × nₑ × fₗ × fᵢ × f_c × L，用于估算银河系中可能存在的智慧文明数量。",
+    usage: "在SETI项目中指导地外文明搜索策略，在天体生物学中评估生命可能性，在科学传播中引发公众对宇宙的思考，在科幻创作中构建世界观。",
+    reading: [
+        {title: "SETI研究所解释", url: "https://www.seti.org/drake-equation-index"},
+        {title: "参数最新研究", url: "https://www.pnas.org/doi/10.1073/pnas.2026805118"},
+        {title: "《宇宙联系》卡尔·萨根", url: "https://book.douban.com/subject/25816451/"}
+    ]
+},
+{
+    term: "莫比乌斯带",
+    category: "数学",
+    icon: "fas fa-infinity",
+    definition: "一种只有一个面和一个边界的拓扑结构，由德国数学家奥古斯特·莫比乌斯和约翰·李斯丁在1858年独立发现。将纸条扭转180度后两端粘合即可制成。",
+    usage: "在数学中研究拓扑性质，在艺术设计中创造无限循环效果，在工程中设计传送带减少磨损，在科幻中象征无限和循环时间，在哲学中讨论单面现实。",
+    reading: [
+        {title: "莫比乌斯带数学原理", url: "https://mathworld.wolfram.com/MoebiusStrip.html"},
+        {title: "工程应用案例", url: "https://www.sciencedirect.com/science/article/abs/pii/S0924013607002501"},
+        {title: "艺术装置中的运用", url: "https://www.moma.org/collection/works/81196"}
+    ]
+},
+/*{
+    term: "汉隆剃刀",
+    category: "逻辑学",
+    icon: "fas fa-cut",
+    definition: "思维原则：'能解释为愚蠢的，就不要解释为恶意。'提醒人们不要轻易将他人行为归因于恶意，而应考虑无知、误解或能力不足等更可能的解释。",
+    usage: "在人际冲突中减少敌意归因，在团队管理中降低误解，在跨文化交流中增强理解，在社交媒体使用中避免恶意揣测，在历史分析中客观评估动机。",
+    reading: [
+        {title: "原则起源与演变", url: "https://fs.blog/hanlons-razor/"},
+        {title: "心理学研究支持", url: "https://www.psychologytoday.com/us/blog/out-the-ooze/202009/hanlons-razor-dont-attribute-malice-what-stupidity-explains"},
+        {title: "在组织行为中的应用", url: "https://hbr.org/2020/03/the-case-for-giving-colleagues-the-benefit-of-the-doubt"}
+    ]
+},*/
+{
+    term: "巴纳姆效应",
+    category: "心理学",
+    icon: "fas fa-theater-masks",
+    definition: "人们倾向于认为模糊、笼统的人格描述特别准确地揭示了自己的特点的现象。以马戏团主P.T.巴纳姆命名，解释了占星术、算命等为何看似准确。",
+    usage: "在心理学教学中展示认知偏差，在消费者保护中揭露伪科学产品，在用户研究中避免设计偏见，在法庭上质疑星座证据的可靠性。",
+    reading: [
+        {title: "经典实验研究", url: "https://psycnet.apa.org/record/1949-00650-000"},
+        {title: "占星术中的效应", url: "https://www.scientificamerican.com/article/how-fallacies-feed-the-astrology-industry/"},
+        {title: "避免认知偏差指南", url: "https://thedecisionlab.com/biases/barnum-effect"}
+    ]
+},
+{
+    term: "普朗克长度",
+    category: "物理学",
+    icon: "fas fa-ruler",
+    definition: "物理学中的基本长度单位，约为1.6×10⁻³⁵米。在这个尺度下，经典时空概念失效，量子引力效应主导。以量子力学创始人马克斯·普朗克命名。",
+    usage: "在量子引力理论(如弦论)中定义最小尺度，在宇宙学中研究大爆炸初期状态，在哲学中讨论时空本质，在科幻中构思微观宇宙。",
+    reading: [
+        {title: "普朗克单位解释", url: "https://www.nist.gov/si-redefinition/planck-constants"},
+        {title: "量子引力研究进展", url: "https://www.quantamagazine.org/troubled-times-for-alternatives-to-einsteins-theory-of-gravity-20180430/"},
+        {title: "《现实的结构》", url: "https://book.douban.com/subject/34908002/"}
+    ]
+},
+{
+    term: "维特根斯坦的梯子",
+    category: "哲学",
+    icon: "fas fa-ladder",
+    definition: "路德维希·维特根斯坦在《逻辑哲学论》中提出的隐喻：'我的命题通过以下方式阐释：理解我的人最终会认识到它们是无意义的—可以说，在爬上梯子之后必须扔掉梯子。'",
+    usage: "在哲学中讨论语言和真理的关系，在数学教育中解释形式系统的工具性，在认知科学中说明思维框架的局限性，在个人成长中比喻超越旧有认知。",
+    reading: [
+        {title: "《逻辑哲学论》", url: "https://book.douban.com/subject/1457215/"},
+        {title: "隐喻哲学分析", url: "https://plato.stanford.edu/entries/wittgenstein/"},
+        {title: "在科学方法中的运用", url: "https://aeon.co/essays/wittgensteins-ladder-what-the-tractatus-meant-and-what-it-didnt"}
+    ]
+},
+
+
+{
+    term: "迪米特法则",
+    category: "计算机科学",
+    icon: "fas fa-sitemap",
+    definition: "软件设计原则：一个对象应该对其他对象保持最少的了解。又称最少知识原则，降低模块间耦合度，提高系统可维护性和可复用性。",
+    usage: "在面向对象编程中设计类关系，在微服务架构中定义服务边界，在API设计中保持接口简洁，在系统架构中减少意外依赖。",
+    reading: [
+        {title: "法则详细解释", url: "https://www2.ccs.neu.edu/research/demeter/"},
+        {title: "《代码整洁之道》", url: "https://book.douban.com/subject/4199741/"},
+        {title: "架构设计中的应用", url: "https://www.infoq.com/articles/demeter-law/"}
+    ]
+},
+{
+    term: "彼得原理",
+    category: "管理学",
+    icon: "fas fa-user-tie",
+    definition: "劳伦斯·彼得提出的组织学观察：在层级制度中，员工会晋升到其不能胜任的职位。最终每个职位都被不能胜任者占据，工作由尚未达到该级别者完成。",
+    usage: "在组织设计中避免过度层级化，在晋升机制中引入能力评估，在职业规划中考虑个人适配度，在团队管理中识别错位角色。",
+    reading: [
+        {title: "《彼得原理》原著", url: "https://book.douban.com/subject/1795173/"},
+        {title: "现代组织研究", url: "https://hbr.org/2018/07/the-peter-principle-is-real-but-easier-to-fix-than-you-think"},
+        {title: "晋升策略优化", url: "https://www.mckinsey.com/business-functions/people-and-organizational-performance/our-insights/not-the-usual-suspects-increasing-diversity-through-better-promotion-processes"}
+    ]
+},
+{
+    term: "康威定律",
+    category: "计算机科学",
+    icon: "fas fa-network-wired",
+    definition: "梅尔文·康威1967年提出的观察：'设计系统的组织...其产生的设计等同于组织的沟通结构。'即系统架构反映组织架构。",
+    usage: "在数字化转型中调整组织结构，在微服务设计中匹配团队边界，在DevOps中优化协作方式，在大型系统开发中规划团队结构。",
+    reading: [
+        {title: "康威原始论文", url: "https://www.melconway.com/Home/Conways_Law.html"},
+        {title: "现代软件架构应用", url: "https://martinfowler.com/bliki/ConwaysLaw.html"},
+        {title: "组织变革案例", url: "https://queue.acm.org/detail.cfm?id=3098444"}
+    ]
+}
+        ];
+
+        // DOM元素
+        const termName = document.getElementById('term-name');
+        const termCategory = document.getElementById('term-category');
+        const termDefinition = document.getElementById('term-definition');
+        const termUsage = document.getElementById('term-usage');
+        const termReading = document.getElementById('term-reading');
+        const refreshBtn = document.getElementById('refresh-btn');
+        const counterElement = document.getElementById('counter');
+        const reminderModal = document.getElementById('reminder-modal');
+        const continueBtn = document.getElementById('continue-btn');
+        const takeBreakBtn = document.getElementById('take-break-btn');
+        const learnedCount = document.getElementById('learned-count');
+        
+        // 计数器
+        let counter = 1;
+        
+        // 显示随机知识条目
+        function showRandomTerm() {
+            // 随机选择一个条目
+            const randomIndex = Math.floor(Math.random() * knowledgeBase.length);
+            const term = knowledgeBase[randomIndex];
+            
+            // 更新DOM
+            termName.textContent = term.term;
+            termCategory.textContent = term.category;
+            document.querySelector('.term-icon i').className = term.icon;
+            termDefinition.textContent = term.definition;
+            termUsage.textContent = term.usage;
+            
+            // 更新阅读推荐
+            termReading.innerHTML = '';
+            term.reading.forEach(item => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = item.url;
+                a.target = "_blank";
+                a.textContent = item.title;
+                li.appendChild(a);
+                termReading.appendChild(li);
+            });
+            
+            // 增加计数器
+            counter++;
+            counterElement.textContent = counter;
+            
+            // 检查是否显示提醒
+            if (counter % 10 === 0) {
+                learnedCount.textContent = counter;
+                setTimeout(() => {
+                    reminderModal.classList.add('active');
+                }, 800);
+            }
+            
+            // 添加动画效果
+            const card = document.querySelector('.knowledge-card');
+            card.style.animation = 'none';
+            setTimeout(() => {
+                card.style.animation = 'fadeInUp 0.8s ease';
+            }, 10);
+        }
+        
+        // 按钮点击事件
+        refreshBtn.addEventListener('click', showRandomTerm);
+        
+        // 弹窗按钮事件
+        continueBtn.addEventListener('click', () => {
+            reminderModal.classList.remove('active');
+        });
+        
+        takeBreakBtn.addEventListener('click', () => {
+            reminderModal.classList.remove('active');
+            // 创建休息提示效果
+            const breakMessage = document.createElement('div');
+            breakMessage.textContent = '休息是为了更好地探索！';
+            breakMessage.style.position = 'fixed';
+            breakMessage.style.top = '50%';
+            breakMessage.style.left = '50%';
+            breakMessage.style.transform = 'translate(-50%, -50%)';
+            breakMessage.style.fontSize = '2rem';
+            breakMessage.style.color = 'white';
+            breakMessage.style.zIndex = '2000';
+            breakMessage.style.opacity = '0';
+            breakMessage.style.transition = 'opacity 1s ease';
+            document.body.appendChild(breakMessage);
+            
+            setTimeout(() => {
+                breakMessage.style.opacity = '1';
+            }, 10);
+            
+            setTimeout(() => {
+                breakMessage.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(breakMessage);
+                }, 1000);
+            }, 3000);
+        });
+        
+        // 初始加载
+        window.addEventListener('load', () => {
+            showRandomTerm();
+            
+            // 添加一些装饰动画
+            const icons = document.querySelectorAll('.floating-icon');
+            icons.forEach((icon, index) => {
+                icon.style.animationDelay = `${index * 1.5}s`;
+            });
+        });
+    </script>
+</body>
+</html>
